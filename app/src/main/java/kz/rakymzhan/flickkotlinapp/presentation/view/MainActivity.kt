@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.OnItemClickLi
     private lateinit var binding: ActivityMainBinding
 
     private val repositoryImpl: PhotoRepositoryImpl by inject()
-    private val flickrApi: FlickrAPI by inject()
     private lateinit var photoViewModel: PhotoViewModel
     private lateinit var photoRecyclerViewAdapter: PhotoRecyclerViewAdapter
 
