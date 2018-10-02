@@ -11,5 +11,5 @@ data class Response(
         val pages: Int,
         val perpage: Int,
         val total: Int,
-        val photo: ArrayList<PhotoEntity>
+        val photo: List<PhotoEntity>
 )

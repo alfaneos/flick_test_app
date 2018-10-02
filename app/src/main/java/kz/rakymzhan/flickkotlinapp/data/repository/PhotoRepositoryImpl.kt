@@ -1,13 +1,16 @@
 package kz.rakymzhan.flickkotlinapp.data.repository
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.LiveData
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kz.rakymzhan.flickkotlinapp.data.common.Configs
 import kz.rakymzhan.flickkotlinapp.data.db.PhotoDatabase
-import kz.rakymzhan.flickkotlinapp.data.network.`interface`.FlickrAPI
+import kz.rakymzhan.flickkotlinapp.data.network.client.PhotoNetworkClient
 import kz.rakymzhan.flickkotlinapp.data.network.model.GalleryResponse
 import kz.rakymzhan.flickkotlinapp.domain.entity.PhotoEntity
+import kz.rakymzhan.flickkotlinapp.domain.usecase.OnDataReadyCallback
 
 class PhotoRepositoryImpl(private val photoDatabase: PhotoDatabase) : PhotoRepository{
 
@@ -15,14 +18,21 @@ class PhotoRepositoryImpl(private val photoDatabase: PhotoDatabase) : PhotoRepos
         getDataFromServer(null)
     }
 
-    fun getData(onDataReadyCallback: OnRepositoryReadyCallback){
-        onDataReadyCallback.onDataReady(photoDatabase.photoDAO().getAllPhotos())
+    fun getData(onDataReadyCallback: OnDataReadyCallback){
+        Observable.just(photoDatabase)
+                .subscribeOn(Schedulers.io())
+                .subscribe { db -> onDataReadyCallback.onDataReady(photoDatabase.photoDAO().getAllPhotos().value ?: listOf())}
+    }
+
+    fun getLiveData() : LiveData<List<PhotoEntity>>{
+        return photoDatabase.photoDAO().getAllPhotos()
     }
 
 
     @SuppressLint("CheckResult")
-    fun getDataFromServer(onDataReadyCallback: OnRepositoryReadyCallback?) {
-        FlickrAPI.create().getGalleryPhotos(api_key = Configs.API_KEY, method = Configs.FLICKR_API_METHOD,
+    fun getDataFromServer(onDataReadyCallback: OnDataReadyCallback?) {
+
+        PhotoNetworkClient().getFlickApi().getGalleryPhotos(api_key = Configs.API_KEY, method = Configs.FLICKR_API_METHOD,
                  gallery_id = Configs.GALLERY_ID, format = Configs.RESPONSE_FORMAT,
                  callback = Configs.CALLBACK)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -36,19 +46,17 @@ class PhotoRepositoryImpl(private val photoDatabase: PhotoDatabase) : PhotoRepos
     }
 
     fun saveDataToLocalDB(galleryResponse: GalleryResponse){
-        photoDatabase.photoDAO().saveAll(galleryResponse.photos.photo)
+        Observable.just(photoDatabase)
+                .subscribeOn(Schedulers.io())
+                .subscribe { db -> db.photoDAO().saveAll(galleryResponse.photos.photo) }
     }
 
-    fun refreshData(onDataReadyCallback: OnRepositoryReadyCallback){
-        onDataReadyCallback.onDataReady(photoDatabase.photoDAO().getAllPhotos())
+    fun refreshData(onDataReadyCallback: OnDataReadyCallback){
+        onDataReadyCallback.onDataReady(photoDatabase.photoDAO().getAllPhotos().value ?: listOf())
     }
 
 }
 
-
-interface OnRepositoryReadyCallback {
-    fun onDataReady(data : ArrayList<PhotoEntity>)
-}
 
 interface PhotoRepository
 

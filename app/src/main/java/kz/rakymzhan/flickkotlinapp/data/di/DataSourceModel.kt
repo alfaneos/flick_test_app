@@ -3,6 +3,7 @@ package kz.rakymzhan.flickkotlinapp.data.di
 import android.arch.persistence.room.Room
 import kz.rakymzhan.flickkotlinapp.data.db.PhotoDatabase
 import kz.rakymzhan.flickkotlinapp.data.network.`interface`.FlickrAPI
+import kz.rakymzhan.flickkotlinapp.data.network.client.PhotoNetworkClient
 import kz.rakymzhan.flickkotlinapp.data.repository.PhotoRepositoryImpl
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,6 @@ val localAndroidDatasourceModule = module(override = true) {
 
     single { PhotoRepositoryImpl(get()) }
 
-    single { FlickrAPI.create() }
+    single { PhotoNetworkClient() }
 
 }
