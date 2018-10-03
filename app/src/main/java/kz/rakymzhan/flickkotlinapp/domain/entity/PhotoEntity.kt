@@ -4,8 +4,6 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
-import java.util.*
-
 @Entity(tableName = "photo", indices = [Index(value = ["id"], unique = true)])
 data class PhotoEntity(
         @PrimaryKey
@@ -38,4 +36,9 @@ data class PhotoEntity(
 
         @ColumnInfo(name = "has_comment")
         val has_comment: Int
-)
+){
+        fun parseUrl(): String{
+                return "https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg"
+
+        }
+}

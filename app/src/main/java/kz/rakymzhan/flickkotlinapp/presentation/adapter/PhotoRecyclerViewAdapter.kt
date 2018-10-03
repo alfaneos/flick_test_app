@@ -34,10 +34,9 @@ class PhotoRecyclerViewAdapter(private var items: List<PhotoEntity>,
         fun bind(photoEntity: PhotoEntity, listener: OnItemClickListener?) {
             binding.photoEntity = photoEntity
             if (listener != null) {
-                binding.root.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
+                binding.root.setOnClickListener({ _ -> listener.onItemClick(photoEntity) })
             }
-            Picasso.get().load("https://farm${photoEntity.farm}.staticflickr.com/${photoEntity.server}/${photoEntity.id}_${photoEntity.secret}.jpg")
-                    .fit().into(binding.photoImage)
+            Picasso.get().load(photoEntity.parseUrl()) .fit().into(binding.photoImage)
 
             binding.executePendingBindings()
         }
@@ -45,7 +44,7 @@ class PhotoRecyclerViewAdapter(private var items: List<PhotoEntity>,
 
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(entity: PhotoEntity)
     }
 
 }

@@ -12,67 +12,81 @@
             type="kz.rakymzhan.flickkotlinapp.presentation.viewmodel.PhotoViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="me.fleka.modernandroidapp.MainActivity">
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/search"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-            <android.support.v7.widget.SearchView
-                android:id="@+id/search_widget"
+            <android.support.v7.widget.CardView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/colorPrimaryDark">
+                <com.lapism.searchview.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:search_logo="arrow"
+                    app:search_shape="rounded"/>
+            </android.support.v7.widget.CardView>
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:iconifiedByDefault="false"/>
-        </android.support.v7.widget.CardView>
+                tools:context="me.fleka.modernandroidapp.MainActivity">
 
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:indeterminate="true"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toTopOf="@+id/refresh_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/photoRV"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:indeterminate="true"
-            android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toTopOf="@+id/refresh_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search"
-            tools:listitem="@layout/rv_photo_item" />
 
-        <Button
-            android:id="@+id/refresh_button"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:onClick="@{() -> viewModel.refresh()}"
-            android:clickable="@{viewModel.isLoading ? false : true}"
-            android:text="Refresh"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+                <ProgressBar
+                    android:id="@+id/loading"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:indeterminate="true"
+                    android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="50dp"/>
 
-    </android.support.constraint.ConstraintLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/photoRV"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:indeterminate="true"
+                    android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="50dp"
+                    tools:listitem="@layout/rv_photo_item" />
+
+                <Button
+                    android:id="@+id/refresh_button"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:onClick="@{() -> viewModel.refresh()}"
+                    android:clickable="@{viewModel.isLoading ? false : true}"
+                    android:text="Refresh"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </android.support.constraint.ConstraintLayout>
+        </FrameLayout>
+
+
+
+    </FrameLayout>
 
 </layout>

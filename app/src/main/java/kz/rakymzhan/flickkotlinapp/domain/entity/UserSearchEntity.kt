@@ -2,8 +2,12 @@ package kz.rakymzhan.flickkotlinapp.domain.entity
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
+import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "search", indices = [Index(value = ["text"], unique = true)])
-class UserSearchEntity {
-        var text: String? = null
-}
+data class UserSearchEntity (
+        @PrimaryKey(autoGenerate = true)
+        var id: Int?,
+
+        var text: String = ""
+)

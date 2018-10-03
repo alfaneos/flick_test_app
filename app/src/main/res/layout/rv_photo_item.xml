@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/photo_name"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/photo_image"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -45,18 +45,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:text="@{photoEntity.title}"
                 android:maxLines="2"/>
-
-            <TextView
-                android:id="@+id/photo_owner"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/photo_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@{photoEntity.owner}"
-                android:maxLines="1"/>
 
 
         </android.support.constraint.ConstraintLayout>

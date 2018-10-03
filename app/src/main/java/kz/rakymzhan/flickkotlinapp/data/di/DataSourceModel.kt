@@ -18,6 +18,7 @@ val localAndroidDatasourceModule = module(override = true) {
     }
 
     single { get<PhotoDatabase>().photoDAO() }
+    single { get<PhotoDatabase>().searchDAO() }
 
 
     single { PhotoRepositoryImpl(get()) }
