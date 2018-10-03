@@ -9,4 +9,8 @@ import kz.rakymzhan.flickkotlinapp.domain.usecase.PhotoDAO
 abstract class PhotoDatabase : RoomDatabase() {
 
     abstract fun photoDAO(): PhotoDAO
+
+    companion object {
+        val DATABASE_NAME = "photo-db"
+    }
 }

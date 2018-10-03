@@ -17,6 +17,22 @@
         android:layout_height="match_parent"
         tools:context="me.fleka.modernandroidapp.MainActivity">
 
+        <android.support.v7.widget.CardView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_widget"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:iconifiedByDefault="false"/>
+        </android.support.v7.widget.CardView>
+
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="48dp"
@@ -26,7 +42,7 @@
             app:layout_constraintBottom_toTopOf="@+id/refresh_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/search" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/photoRV"
@@ -37,7 +53,7 @@
             app:layout_constraintBottom_toTopOf="@+id/refresh_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search"
             tools:listitem="@layout/rv_photo_item" />
 
         <Button

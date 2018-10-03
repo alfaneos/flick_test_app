@@ -39,14 +39,3 @@ data class PhotoEntity(
         @ColumnInfo(name = "has_comment")
         val has_comment: Int
 )
-
-//@Entity(tableName = "photo")
-//class PhotoEntity {
-//
-//        @PrimaryKey(autoGenerate = true)
-//        var id: Long = 0
-//
-//        var name: String? = null
-//
-//
-//}

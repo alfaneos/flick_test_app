@@ -32,9 +32,7 @@ class PhotoRepositoryImpl(private val photoDatabase: PhotoDatabase) : PhotoRepos
     @SuppressLint("CheckResult")
     fun getDataFromServer(onDataReadyCallback: OnDataReadyCallback?) {
 
-        PhotoNetworkClient().getFlickApi().getGalleryPhotos(api_key = Configs.API_KEY, method = Configs.FLICKR_API_METHOD,
-                 gallery_id = Configs.GALLERY_ID, format = Configs.RESPONSE_FORMAT,
-                 callback = Configs.CALLBACK)
+        PhotoNetworkClient().getFlickApi().getGalleryPhotos()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ result ->

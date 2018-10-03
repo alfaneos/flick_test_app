@@ -37,7 +37,7 @@ class PhotoRecyclerViewAdapter(private var items: List<PhotoEntity>,
                 binding.root.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
             }
             Picasso.get().load("https://farm${photoEntity.farm}.staticflickr.com/${photoEntity.server}/${photoEntity.id}_${photoEntity.secret}.jpg")
-                    .into(binding.photoImage)
+                    .fit().into(binding.photoImage)
 
             binding.executePendingBindings()
         }
