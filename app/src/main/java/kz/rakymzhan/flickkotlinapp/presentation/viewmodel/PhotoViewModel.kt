@@ -116,6 +116,7 @@ class PhotoViewModel(val activity: AppCompatActivity, private val repositoryImpl
     override fun onQueryTextSubmit(query: CharSequence?): Boolean {
         query?.let {
             repositoryImpl.saveUseSearch(UserSearchEntity(id = null, text = it.toString()), this)
+            binding.searchView.close()
             return true
         } ?: return false
     }

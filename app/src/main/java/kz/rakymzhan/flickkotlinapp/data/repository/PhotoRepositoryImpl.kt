@@ -69,7 +69,6 @@ class PhotoRepositoryImpl(private val photoDatabase: PhotoDatabase) : PhotoRepos
                 .subscribeOn(Schedulers.io())
                 .subscribe({result ->
                     onDataReadyCallback?.onDataReady(result.photos.photo)
-                    saveDataToLocalDB(result)
                     photoDatabase.searchDAO().saveSearch(search)
                 },      {error ->
                     error.printStackTrace()
